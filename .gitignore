@@ -2,7 +2,7 @@
 __pycache__/
 *.py[cod]
 db.sqlite3
-settings.py
+# settings.py
 # OTHER
 node_modules
 .DS_STORE
