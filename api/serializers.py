@@ -4,6 +4,12 @@ from rest_framework import serializers
 
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
+    id = serializers.HyperlinkedRelatedField(
+        view_name='project-detail',
+        lookup_field='pk',
+        queryset=Project.objects.all()
+    )
+
     class Meta:
         model = Project
         fields = '__all__'

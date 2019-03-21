@@ -1,19 +1,21 @@
 from django.db import models
 from django.utils.timezone import now
+from datetime import date
+# import datetime.date.today()
 # from auth_app.models import User  # модели пока нет, как и приложения auth_app
 
 
 class Project(models.Model):  # проект
 
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True)
     # users = models.ManyToManyField(User, verbose_name='участники', on_delete=models.CASCADE)
     name = models.CharField(verbose_name='название проекта', max_length=128, unique=True)
     description = models.TextField(verbose_name='опсиание проекта', blank=True)
-    date_start = models.DateTimeField(verbose_name='дата начала проекта', default=now())
-    date_end = models.DateTimeField(verbose_name='дата окнчания проекта')
+    date_start = models.DateField(verbose_name='дата начала проекта', default=date.today())
+    date_end = models.DateField(verbose_name='дата окнчания проекта')
     is_active = models.BooleanField(verbose_name='активен', default=True)
 
-    # def delete(self, request, *args, **kwargs):
+    # def delete(self, request, pk=None):
     #     self.object = self.get_object()
     #     self.object.is_active = False
     #     self.object.save()

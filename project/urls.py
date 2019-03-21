@@ -15,18 +15,25 @@ Including another URLconf
 """
 
 from django.urls import re_path
-import project.views as project
-from rest_framework import routers
-from django.conf.urls import include
+import project.views as views
+from django.conf.urls import include, url
+from rest_framework.urlpatterns import format_suffix_patterns
+
+from project.views import ProjectList, ProjectDetail
 
 app_name = 'project'
 
-router = routers.DefaultRouter()
-router.register(r'^project/$', project.ProjectListView, base_name='project_list')
-
 urlpatterns = [
+    url(r'^$', views.api_root),
+    url(r'^projects/$', ProjectList.as_view(), name='project-list'),
+    url(r'^projects/(?P<pk>\d+)/$', ProjectDetail.as_view(), name='project-detail'),
+]
 
-    re_path('^/', include(router.urls)),
+# urlpatterns = [
+#
+#     re_path('^$', views.api_root),
+#     re_path('^projects/$', ProjectList.as_view(), name='project-list'),
+#     re_path('^projects/(?P<pk>\d+)/$', ProjectDetail.as_view(), name='project-detail'),
     # re_path('^project/create/$', project.ProjectCreateView.as_view(), name='project_create'),
     # re_path('^project/read/$', project.ProjectListView.as_view(), name='project_read'),
     # re_path('^project/read/(?P<page>\d+)/$', project.ProjectListView, name='project_read'),
@@ -34,4 +41,6 @@ urlpatterns = [
     # re_path('^project/delete/(?P<pk>\d+)/$', project.ProjectDeleteView.as_view(), name='project_delete'),
     # re_path('^project/recover/(?P<pk>\d+)/$', project.ProjectRecoverView.as_view(), name='project_recover'),
 
-]
+# ]
+
+urlpatterns = format_suffix_patterns(urlpatterns, allowed=['json', 'api'])
