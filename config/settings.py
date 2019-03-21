@@ -25,7 +25,7 @@ SECRET_KEY = 'qa451oo(z@l#is+(*2fwty88&a!+yo6++_8ndr)1y%&-j=%#e1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'social_django',
     'auth_social',
     'project',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -72,19 +73,27 @@ TEMPLATES = [
     },
 ]
 
-
 WSGI_APPLICATION = 'config.wsgi.application'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'NAME': 'geekshop',
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'USER': 'devtaskteam',
+    #     'PASSWORD': 'D3VtA5k',  # \/ заменил на V, с \/ ругается
+    #     'HOST': 'localhost'
+    # }
     'default': {
-        'NAME': 'geekshop',
-        'ENGINE': 'django.db.backends.postgresql',
-        'USER': 'devtaskteam',
-        'PASSWORD': 'D3VtA5k',  # \/ заменил на V, с \/ ругается
-        'HOST': 'localhost'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

@@ -16,16 +16,22 @@ Including another URLconf
 
 from django.urls import re_path
 import project.views as project
+from rest_framework import routers
+from django.conf.urls import include
 
 app_name = 'project'
 
+router = routers.DefaultRouter()
+router.register(r'^project/$', project.ProjectListView, base_name='project_list')
+
 urlpatterns = [
 
-    re_path('^project/create/$', project.ProjectCreateView.as_view(), name='project_create'),
-    re_path('^project/read/$', project.ProjectListView.as_view(), name='project_read'),
-    re_path('^project/read/(?P<page>\d+)/$', project.ProjectListView.as_view(), name='project_read'),
-    re_path('^project/update/(?P<pk>\d+)/$', project.ProjectUpdateView.as_view(), name='project_update'),
-    re_path('^project/delete/(?P<pk>\d+)/$', project.ProjectDeleteView.as_view(), name='project_delete'),
-    re_path('^project/recover/(?P<pk>\d+)/$', project.ProjectRecoverView.as_view(), name='project_recover'),
+    re_path('^/', include(router.urls)),
+    # re_path('^project/create/$', project.ProjectCreateView.as_view(), name='project_create'),
+    # re_path('^project/read/$', project.ProjectListView.as_view(), name='project_read'),
+    # re_path('^project/read/(?P<page>\d+)/$', project.ProjectListView, name='project_read'),
+    # re_path('^project/update/(?P<pk>\d+)/$', project.ProjectUpdateView.as_view(), name='project_update'),
+    # re_path('^project/delete/(?P<pk>\d+)/$', project.ProjectDeleteView.as_view(), name='project_delete'),
+    # re_path('^project/recover/(?P<pk>\d+)/$', project.ProjectRecoverView.as_view(), name='project_recover'),
 
 ]
