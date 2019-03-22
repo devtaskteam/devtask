@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.urls import re_path
+# from django.urls import re_path
 import project.views as views
 from django.conf.urls import include, url
 from rest_framework.urlpatterns import format_suffix_patterns
@@ -28,6 +28,8 @@ urlpatterns = [
     url(r'^projects/$', ProjectList.as_view(), name='project-list'),
     url(r'^projects/(?P<pk>\d+)/$', ProjectDetail.as_view(), name='project-detail'),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns, allowed=['json', 'api'])
 
 # urlpatterns = [
 #
@@ -43,4 +45,3 @@ urlpatterns = [
 
 # ]
 
-urlpatterns = format_suffix_patterns(urlpatterns, allowed=['json', 'api'])

@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from api.serializers import ProjectSerializer
+from project.api.serializers import ProjectSerializer
 from rest_framework import generics
 from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
@@ -12,10 +12,10 @@ from project.models import Project, Stage, Task
 
 
 @api_view(['GET'])
-def api_root(request, format=None):
+def api_root(request):
 
     return Response({
-        'project': reverse('project-list', request=request),
+        'projects': reverse('project:project-list', request=request),
     })
 
 
