@@ -25,4 +25,6 @@ urlpatterns = [
     re_path(r'^project/', include('project.urls', namespace='project')),
 
     re_path('^api/', include('rest_framework.urls', namespace='api')),
+
+    re_path('^social/', include('auth_social.urls', namespace='social')),
 ]
