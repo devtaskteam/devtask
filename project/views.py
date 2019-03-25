@@ -1,7 +1,3 @@
-from django.shortcuts import render, HttpResponseRedirect
-from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
 from project.api.serializers import ProjectSerializer, StageSerializer, TaskSerializer
 from rest_framework import generics
 from rest_framework.decorators import api_view
@@ -24,7 +20,7 @@ def api_root(request):
 class ProjectList(generics.ListCreateAPIView):
 
     model = Project
-    queryset = Project.objects.all().order_by.order_by('is_active', 'name')
+    queryset = Project.objects.all().order_by('is_active', 'name')
     serializer_class = ProjectSerializer
 
 
