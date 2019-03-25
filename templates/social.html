@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+            {{ page_title|title }}
+        {% endblock %}
+    </title>
+</head>
+<body>
+    <div>
+        <a href="{% url 'social:begin' 'vk-oauth2' %}?next=/" class="btn btn-round form-control">
+            VK sign in
+        </a>
+    </div>
+
+    <div>
+        <a href="{% url 'social:begin' 'facebook' %}?next=/" class="btn btn-round form-control">
+            Facebook sign in
+        </a>
+    </div>
+
+    <div>
+        <a href="{% url 'social:begin' 'github' %}?next=/" class="btn btn-round form-control">
+            Github sign in
+        </a>
+    </div>
+
+
+</body>
+</html>

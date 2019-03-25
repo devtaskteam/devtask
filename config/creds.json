@@ -1,0 +1,6 @@
+{
+  "EMAIL_HOST": "smtp.sendgrid.net",
+  "EMAIL_PORT": "587",
+  "EMAIL_HOST_USER": "apikey",
+  "EMAIL_HOST_PASSWORD": "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"
+}
