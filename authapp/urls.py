@@ -13,18 +13,21 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, re_path
-from django.conf.urls import include
+
+# from django.urls import re_path
+import authapp.views as views
+from django.conf.urls import include, url
+from rest_framework.urlpatterns import format_suffix_patterns
+
+from authapp.views import UserList, UserDetail
+
+app_name = 'authapp'
 
 urlpatterns = [
+    url(r'^$', views.api_root),
+    url(r'^register/$', UserList.as_view(), name='user-list'),
+    url(r'^user/(?P<pk>\d+)/$', UserDetail.as_view(), name='user-detail'),
 
-    path('dashboard/', admin.site.urls),
-
-    re_path(r'^project/', include('project.urls', namespace='project')),
-
-    re_path('^api/', include('rest_framework.urls', namespace='api')),
-
-    re_path(r'^auth/verify/social/', include("social_django.urls", namespace="social")),
-    re_path(r'^social/', include('auth_social.urls', namespace='social_view')),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns, allowed=['json', 'api'])
