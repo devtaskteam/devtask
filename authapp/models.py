@@ -10,3 +10,6 @@ class User(AbstractUser):  # пользователь
     role = models.CharField(verbose_name='Роль пользователя', max_length=128, blank=True)
     avatar = models.ImageField(verbose_name='Аватар пользователя', blank=True)
     is_active = models.BooleanField(verbose_name='активен', default=True)
+
+    def __str__(self):
+        return self.username, self.password

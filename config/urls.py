@@ -24,6 +24,8 @@ urlpatterns = [
     re_path(r'^project/', include('project.urls', namespace='project')),
 
     re_path('^api/', include('rest_framework.urls', namespace='api')),
+    # re_path('^api/', include('rest_auth.urls', namespace='api_reg')),
+    # re_path('^rest/auth/', include('rest_auth.urls')),  # namespace='rest_auth')),
     re_path('^api/reg/', include('authapp.urls', namespace='api_reg')),
 
     re_path(r'^auth/verify/social/', include("social_django.urls", namespace="social")),

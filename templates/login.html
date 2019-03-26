@@ -1,4 +1,4 @@
-{% extends 'authapp/base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block container %}
@@ -19,19 +19,19 @@
         </form>
 
         <div>
-           <a href="{% url 'auth:register' %}" class="btn btn-round form-control">
+           <a href="{% url 'authapp:user-list' %}" class="btn btn-round form-control">
                 Зарегестрироваться
            </a>
         </div>
 
 
-        <a href="{% url 'social:begin' 'google-oauth2' %}?next=/" class="btn btn-round form-control">
-            Google+ sign in
-        </a>
+        <!--<a href="{% url 'social:begin' 'google-oauth2' %}?next=/" class="btn btn-round form-control">-->
+            <!--Google+ sign in-->
+        <!--</a>-->
 
-        <a href="{% url 'social:begin' 'vk-oauth2' %}?next=/" class="btn btn-round form-control">
-            VK sign in
-        </a>
+        <!--<a href="{% url 'social:begin' 'vk-oauth2' %}?next=/" class="btn btn-round form-control">-->
+            <!--VK sign in-->
+        <!--</a>-->
 
     </div>
 {% endblock %}

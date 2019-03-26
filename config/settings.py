@@ -39,9 +39,10 @@ INSTALLED_APPS = [
     'social_django',
     'auth_social',
     'project',
-    'rest_framework',
     'authapp',
-    'rest_framework.authtoken'
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
 ]
 
 MIDDLEWARE = [
@@ -144,8 +145,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_URL = 'social_view'
-# LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/api/login'
+# LOGIN_URL = 'social_view'
+LOGIN_REDIRECT_URL = '/project'
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
