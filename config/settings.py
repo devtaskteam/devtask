@@ -39,9 +39,10 @@ INSTALLED_APPS = [
     'social_django',
     'auth_social',
     'project',
-    'rest_framework',
     'authapp',
-    'rest_framework.authtoken'
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
 ]
 
 MIDDLEWARE = [
@@ -79,7 +80,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 REST_FRAMEWORK = {
     # 'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
-    # 'PAGINATE_BY': 10,
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -144,8 +144,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_URL = 'api/login'
-# LOGIN_REDIRECT_URL = '/'
+# LOGIN_URL = '/login/'
+# LOGIN_REDIRECT_URL = '/project/'
+# LOGOUT_REDIRECT_URL = '/api/'
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',

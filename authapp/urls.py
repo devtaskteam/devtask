@@ -16,7 +16,7 @@ Including another URLconf
 
 # from django.urls import re_path
 import authapp.views as views
-from django.conf.urls import include, url
+from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from authapp.views import UserList, UserDetail
@@ -24,7 +24,7 @@ from authapp.views import UserList, UserDetail
 app_name = 'authapp'
 
 urlpatterns = [
-    url(r'^$', views.api_root),
+    # url(r'^$', views.api_root),
     url(r'^register/$', UserList.as_view(), name='user-list'),
     url(r'^user/(?P<pk>\d+)/$', UserDetail.as_view(), name='user-detail'),
 
