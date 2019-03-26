@@ -24,7 +24,7 @@ def api_root(request):
 class ProjectList(generics.ListCreateAPIView):
 
     model = Project
-    queryset = Project.objects.all().order_by.order_by('is_active', 'name')
+    queryset = Project.objects.all()  # .order_by.order_by('is_active', 'name')
     serializer_class = ProjectSerializer
 
 
