@@ -144,7 +144,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_URL = 'social_view'
+LOGIN_URL = 'api/login'
 # LOGIN_REDIRECT_URL = '/'
 
 AUTHENTICATION_BACKENDS = (

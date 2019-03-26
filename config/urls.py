@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from django.conf.urls import include
+from django.conf.urls import include, url
+from rest_framework.authtoken import views as views
 
 urlpatterns = [
 
@@ -24,6 +25,9 @@ urlpatterns = [
     re_path(r'^project/', include('project.urls', namespace='project')),
 
     re_path('^api/', include('rest_framework.urls', namespace='api')),
+
+    url(r'^api-token-auth/', views.obtain_auth_token),
+
     re_path('^api/reg/', include('authapp.urls', namespace='api_reg')),
 
     re_path(r'^auth/verify/social/', include("social_django.urls", namespace="social")),
