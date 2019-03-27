@@ -28,6 +28,9 @@ urlpatterns = [
     url(r'^register/$', UserList.as_view(), name='user-list'),
     url(r'^user/(?P<pk>\d+)/$', UserDetail.as_view(), name='user-detail'),
 
+    # url(r'^password/reset/confirm/$', UserDetail.as_view(), name='password_reset_confirm'),  # NOT RESOLVED!!!!
+    # (NO EMAIL WILL ARRIVE)
+
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns, allowed=['json', 'api'])

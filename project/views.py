@@ -1,5 +1,5 @@
 from project.api.serializers import ProjectSerializer, StageSerializer, TaskSerializer
-from rest_framework import generics
+from rest_framework import generics, viewsets
 from rest_framework.reverse import reverse
 from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
@@ -19,6 +19,12 @@ def api_root(request):
         'main': reverse('api:user-list', request=request),
 
     })
+
+
+# class ProjectList(viewsets.ModelViewSet):
+#     # model = Project
+#     queryset = Project.objects.all().order_by('is_active', 'name')
+#     serializer_class = ProjectSerializer
 
 
 @authentication_classes((SessionAuthentication, BasicAuthentication))

@@ -1,12 +1,12 @@
 from django.db import models
 import datetime
-# from auth_app.models import User  # модели пока нет, как и приложения auth_app
+from authapp.models import User  # модели пока нет, как и приложения auth_app
 
 
 class Project(models.Model):  # проект
 
     slug = models.SlugField(unique=True, blank=True)
-    # users = models.ManyToManyField(User, verbose_name='участники', on_delete=models.CASCADE)
+    users = models.ManyToManyField(User, verbose_name='участники')  # , on_delete=models.CASCADE)
     name = models.CharField(verbose_name='название проекта', max_length=128, unique=True)
     description = models.TextField(verbose_name='опсиание проекта', blank=True)
     date_start = models.DateField(verbose_name='дата начала проекта', default=datetime.date.today())
@@ -29,7 +29,7 @@ class Task(models.Model):  # задача
 
     id_project = models.ForeignKey(Project, verbose_name='название проекта', on_delete=models.CASCADE)
     id_stage = models.ForeignKey(Stage, verbose_name='название этапа', on_delete=models.CASCADE)
-    # id_user = models.ForeignKey(User, verbose_name='исполнители', on_delete=models.CASCADE)
+    id_user = models.ForeignKey(User, verbose_name='исполнители', null=True, on_delete=models.CASCADE)
     name = models.CharField(verbose_name='название задачи', max_length=128, unique=True)
     description = models.TextField(verbose_name='опсиание задачи', blank=True)
     date_start = models.DateField(verbose_name='дата начала задачи', default=datetime.date.today())

@@ -1,9 +1,17 @@
 from project.models import Project, Stage, Task
+from authapp.models import User
 from rest_framework import serializers
 
 
+# class ProjectSerializer(serializers.ModelSerializer):
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name="project:project-detail")
+    users = serializers.HyperlinkedRelatedField(
+        label='Ползователи',
+        queryset=User.objects.all(),
+        view_name='api:user-detail',
+        many=True
+    )
 
     class Meta:
         model = Project
@@ -35,6 +43,12 @@ class TaskSerializer(serializers.HyperlinkedModelSerializer):
         label='Название этапа',
         queryset=Stage.objects.all(),
         view_name='project:stage-detail'
+    )
+
+    id_user = serializers.HyperlinkedRelatedField(
+        label='Ползователи',
+        queryset=User.objects.all(),
+        view_name='api:user-detail'
     )
 
     class Meta:
