@@ -1,5 +1,4 @@
 from authapp.models import User
-from rest_auth.serializers import PasswordResetSerializer
 from rest_framework import serializers
 
 
@@ -30,7 +29,4 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
-
-
-class NewPasswordResetSerializer(PasswordResetSerializer):
 
