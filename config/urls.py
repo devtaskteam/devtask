@@ -17,23 +17,18 @@ from django.contrib import admin
 from django.urls import path, re_path
 from django.conf.urls import include
 from authapp import views as views
-from rest_auth.views import PasswordResetConfirmView
-
 
 urlpatterns = [
 
     path('dashboard/', admin.site.urls),
 
-    re_path(r'^api/$', views.api_root),
+    # re_path(r'^api/$', views.api_root),
 
     re_path(r'^project/', include('project.api.urls', namespace='project')),
-
-    # re_path('^api/', include('rest_framework.urls', namespace='api')),
-
-    re_path('^auth/', include('rest_auth.urls')),
-    re_path(r'^auth/password/reset/confirm/$', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-
     re_path('^api/', include('authapp.api.urls', namespace='api')),
+
+    # re_path('^accounts/', include('allauth.urls')),
+    re_path('^', include('rest_auth.urls')),
 
     re_path(r'^auth/verify/social/', include("social_django.urls", namespace="social")),
     re_path(r'^social/', include('auth_social.urls', namespace='social_view')),

@@ -24,7 +24,7 @@ from authapp.views import UserList, UserDetail
 app_name = 'authapp'
 
 urlpatterns = [
-    # url(r'^$', views.api_root),
+    url(r'^$', views.api_root),
     url(r'^register/$', UserList.as_view(), name='user-list'),
     url(r'^user/(?P<pk>\d+)/$', UserDetail.as_view(), name='user-detail'),
 

@@ -14,9 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-# from django.urls import re_path
 import project.views as views
-from django.conf.urls import include, url
+from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from project.views import ProjectList, ProjectDetail, StageList, StageDetail, TaskList, TaskDetail
