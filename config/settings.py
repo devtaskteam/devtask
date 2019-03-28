@@ -97,24 +97,15 @@ DOMAIN_NAME = 'http://localhost:8000'
 # EMAIL_HOST_PASSWORD = ''
 # EMAIL_USE_SSL = True
 
-# ACCOUNT_AUTHENTICATION_METHOD = 'email'
-# ACCOUNT_EMAIL_REQUIRED = True
-# ACCOUNT_USERNAME_REQUIRED = False
-# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_FILE_PATH = 'tmp/email-massages'
 
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = '25'
-EMAIL_HOST_USER = 'django@dev.local'
-EMAIL_HOST_PASSWORD = 'dev'
+EMAIL_HOST_USER = 'user@gmail.com'
+EMAIL_HOST_PASSWORD = 'pass'
 EMAIL_USE_SSL = False
-
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = 'tmp/email-massages'
-
-# REST_AUTH_SERIALIZERS = {
-#     'PASSWORD_RESET_SERIALIZER':
-#         'rest_auth.serializers.PasswordResetSerializer',
-# }
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
@@ -173,7 +164,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # LOGIN_URL = '/login/'
-# LOGIN_REDIRECT_URL = '/project/'
+# LOGIN_REDIRECT_URL = '/api/'
 # LOGOUT_REDIRECT_URL = '/api/'
 
 AUTHENTICATION_BACKENDS = (
