@@ -88,8 +88,8 @@ REST_FRAMEWORK = {
     )
 }
 
-# DOMAIN_NAME = 'http://localhost:8000'
-DOMAIN_NAME = 'http://127.0.0.1:8000'
+DOMAIN_NAME = 'http://localhost:8000'
+# DOMAIN_NAME = 'http://127.0.0.1:8000'
 
 # EMAIL_HOST = 'smtp.yandex.ru'
 # EMAIL_PORT = ' 465'
@@ -97,14 +97,15 @@ DOMAIN_NAME = 'http://127.0.0.1:8000'
 # EMAIL_HOST_PASSWORD = ''
 # EMAIL_USE_SSL = True
 
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+# ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_USERNAME_REQUIRED = False
+# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = '25'
-EMAIL_HOST_PASSWORD = 'geekshop'
+EMAIL_HOST_USER = 'django@dev.local'
+EMAIL_HOST_PASSWORD = 'dev'
 EMAIL_USE_SSL = False
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
