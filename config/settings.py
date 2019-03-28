@@ -103,8 +103,8 @@ DOMAIN_NAME = 'http://localhost:8000'
 # EMAIL_HOST_PASSWORD = ''
 # EMAIL_USE_SSL = True
 
-# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_FILE_PATH = 'tmp/email-massages'
 
 EMAIL_HOST = 'localhost'
