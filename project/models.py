@@ -1,6 +1,6 @@
 from django.db import models
 import datetime
-from authapp.models import User  # модели пока нет, как и приложения auth_app
+from authapp.models import User
 
 
 class Project(models.Model):  # проект

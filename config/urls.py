@@ -24,6 +24,7 @@ urlpatterns = [
 
     re_path(r'^project/', include('project.api.urls', namespace='project')),
     re_path('^api/', include('authapp.api.urls', namespace='api')),
+    re_path('^message/', include('message.api.urls', namespace='message')),
 
     re_path('^', include('rest_auth.urls')),
     re_path(r'^password-reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', TemplateView.as_view(), name='password_reset_confirm'),

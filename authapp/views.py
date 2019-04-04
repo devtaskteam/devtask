@@ -22,6 +22,7 @@ def api_root(request):
         'rest_password_reset': reverse('rest_password_reset', request=request),
         'rest_password_reset_confirm': reverse('rest_password_reset_confirm', request=request),
         'rest_password_change': reverse('rest_password_change', request=request),
+        'messages': reverse('message:chat-list', request=request),
 
     })
 
