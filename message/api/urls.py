@@ -18,7 +18,7 @@ import message.views as views
 from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from message.views import ChatList, ChatDetail  # , MessageList, MessageDetail
+from message.views import ChatList, ChatDetail, MessageList, MessageDetail
 
 app_name = 'message'
 
@@ -26,8 +26,8 @@ urlpatterns = [
     url(r'^$', views.api_root),
     url(r'^chats/$', ChatList.as_view(), name='chat-list'),
     url(r'^chats/(?P<pk>\d+)/$', ChatDetail.as_view(), name='chat-detail'),
-    # url(r'^messages/$', MessageList.as_view(), name='message-list'),
-    # url(r'^messages/(?P<pk>\d+)/$', MessageDetail.as_view(), name='message-detail'),
+    url(r'^messages/$', MessageList.as_view(), name='message-list'),
+    url(r'^messages/(?P<pk>\d+)/$', MessageDetail.as_view(), name='message-detail'),
 
 ]
 

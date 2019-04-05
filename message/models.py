@@ -16,7 +16,7 @@ class Chat(models.Model):
         (CHAT, _('Chat')),
     )
 
-    type = models.CharField(
+    variant = models.CharField(
         _('Тип'),
         max_length=1,
         choices=CHAT_TYPE_CHOICES,

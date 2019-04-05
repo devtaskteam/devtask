@@ -5,7 +5,7 @@ from rest_framework import serializers
 
 # class ProjectSerializer(serializers.ModelSerializer):
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name="project:project-detail")
+    url = serializers.HyperlinkedIdentityField(view_name='project:project-detail')
     users = serializers.HyperlinkedRelatedField(
         label='Ползователи',
         queryset=User.objects.all(),
@@ -19,7 +19,7 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class StageSerializer(serializers.HyperlinkedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name="project:stage-detail")
+    url = serializers.HyperlinkedIdentityField(view_name='project:stage-detail')
     id_project = serializers.HyperlinkedRelatedField(
         label='Название проекта',
         queryset=Project.objects.all(),
@@ -32,7 +32,7 @@ class StageSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class TaskSerializer(serializers.HyperlinkedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name="project:task-detail")
+    url = serializers.HyperlinkedIdentityField(view_name='project:task-detail')
     id_project = serializers.HyperlinkedRelatedField(
         label='Название проекта',
         queryset=Project.objects.all(),
