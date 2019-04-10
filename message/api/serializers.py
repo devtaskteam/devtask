@@ -12,9 +12,10 @@ class ChatSerializer(serializers.HyperlinkedModelSerializer):
     variant = serializers.ChoiceField(choices=[
         (DIALOG, _('Dialog')),
         (CHAT, _('Chat'))])
+
     members = serializers.HyperlinkedRelatedField(
         label='Участник',
-        queryset=User.objects.all(),
+        queryset=User.objects.all(),  # .exclude(id=data.id),
         view_name='api:user-detail',
         many=True
     )
@@ -33,7 +34,13 @@ class MessageSerializer(serializers.HyperlinkedModelSerializer):
     )
 
     author = serializers.HyperlinkedRelatedField(
-        label='Ползователи',
+        label='Автор',
+        queryset=User.objects.all(),
+        view_name='api:user-detail'
+    )
+
+    recipient = serializers.HyperlinkedRelatedField(
+        label='Получатель',
         queryset=User.objects.all(),
         view_name='api:user-detail'
     )

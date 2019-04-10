@@ -57,5 +57,3 @@ class MessageDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Message.objects.all().order_by('pub_date')
     serializer_class = MessageSerializer
 
-
-
