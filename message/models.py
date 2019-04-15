@@ -1,5 +1,3 @@
-from django.db import models
-
 # Create your models here.
 
 from django.db import models
@@ -22,22 +20,20 @@ class Chat(models.Model):
         choices=CHAT_TYPE_CHOICES,
         default=DIALOG
     )
-    members = models.ManyToManyField(User, verbose_name=_('Участник'))
-
-    # @models.permalink
-    # def get_absolute_url(self):
-    #     return 'users:messages', (), {'chat_id': self.pk}
+    members = models.ManyToManyField(User, verbose_name=_('Участники'))
 
 
 class Message(models.Model):
     chat = models.ForeignKey(Chat, verbose_name=_('Чат'), on_delete=models.CASCADE)
-    author = models.ForeignKey(User, verbose_name=_('Пользователь'), on_delete=models.CASCADE)
+    author = models.ForeignKey(User, verbose_name=_('Автор'), on_delete=models.CASCADE, related_name='author')
+    recipient = models.ForeignKey(User, verbose_name=_('Получатель'), on_delete=models.CASCADE, related_name='recipient', default='')
     message = models.TextField(_('Сообщение'))
-    pub_date = models.DateTimeField(_('Дата сообщения'), default=timezone.now)
-    is_readed = models.BooleanField(_('Прочитано'), default=False)
+    pub_date = models.DateTimeField(_('Время отправки'), default=timezone.now)
+    is_read = models.BooleanField(_('Прочитано'), default=False)
 
     class Meta:
         ordering = ['pub_date']
 
     def __str__(self):
         return self.message
+

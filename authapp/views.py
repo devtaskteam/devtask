@@ -6,6 +6,8 @@ from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 
+from rest_framework import filters
+
 from authapp.models import User
 
 
@@ -40,6 +42,9 @@ class UserList(generics.ListCreateAPIView):
         else:
             return User.objects.none()
 
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('email',)
+
 
 @authentication_classes((SessionAuthentication, BasicAuthentication))
 @permission_classes((IsAuthenticated,))
@@ -48,3 +53,4 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     model = User
     queryset = User.objects.all().order_by('is_active', 'name')
     serializer_class = UserSerializer
+
