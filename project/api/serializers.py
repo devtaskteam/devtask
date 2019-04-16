@@ -3,7 +3,6 @@ from authapp.models import User
 from rest_framework import serializers
 
 
-# class ProjectSerializer(serializers.ModelSerializer):
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='project:project-detail')
     users = serializers.HyperlinkedRelatedField(
@@ -16,6 +15,40 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Project
         fields = '__all__'
+
+    def create(self, validated_data):
+        slug_tmp = validated_data.pop('slug')
+
+        project = Project(
+
+            name=validated_data['name'],
+            description=validated_data['description'],
+            date_end=validated_data['date_end'],
+            is_active=validated_data['is_active'],
+        )
+
+        slug_tmp_num = slug_tmp + '_'
+        if Project.objects.filter(slug=slug_tmp):
+
+            if Project.objects.filter(slug__iregex=slug_tmp_num + r'[0-9]'):
+                last_slug = Project.objects.filter(slug__iregex=slug_tmp_num + r'[0-9]').order_by('-id')[:1][0]
+                last_slug_name = last_slug.slug
+                last_digits_in_last_slag_name = ''.join(list(last_slug_name)[len(list(slug_tmp_num)):])
+                new_slug_digit = int(last_digits_in_last_slag_name) + 1
+                project.slug = (slug_tmp_num + str(new_slug_digit))
+
+            else:
+                project.slug = slug_tmp_num + '1'
+
+        else:
+            project.slug = slug_tmp
+
+        project.save()
+        many_to_many = {'users': validated_data['users']}
+        for field_name, value in many_to_many.items():
+            field = getattr(project, field_name)
+            field.set(value)
+        return project
 
 
 class StageSerializer(serializers.HyperlinkedModelSerializer):
