@@ -8,6 +8,10 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 
 from project.models import Project, Stage, Task
 
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
+import django_filters.rest_framework
+
 
 @api_view(['GET'])
 def api_root(request):
@@ -47,6 +51,9 @@ class StageList(generics.ListCreateAPIView):
     queryset = Stage.objects.all().order_by('is_active', 'name')
     serializer_class = StageSerializer
 
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ['id_project__id']
+
 
 @authentication_classes((SessionAuthentication, BasicAuthentication))
 @permission_classes((IsAuthenticated,))
@@ -64,6 +71,9 @@ class TaskList(generics.ListCreateAPIView):
     model = Task
     queryset = Task.objects.all().order_by('is_active', 'name')
     serializer_class = TaskSerializer
+
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ['id_project__id']
 
 
 @authentication_classes((SessionAuthentication, BasicAuthentication))
