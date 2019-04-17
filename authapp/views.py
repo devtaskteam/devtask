@@ -43,7 +43,7 @@ class UserList(generics.ListCreateAPIView):
             return User.objects.none()
 
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('email',)
+    search_fields = ('^email',)
 
 
 @authentication_classes((SessionAuthentication, BasicAuthentication))
