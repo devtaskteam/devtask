@@ -1,5 +1,6 @@
 from project.api.serializers import ProjectSerializer, StageSerializer, TaskSerializer
 from rest_framework import generics
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.reverse import reverse
 from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
@@ -11,6 +12,12 @@ from project.models import Project, Stage, Task
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 import django_filters.rest_framework
+
+
+class CustomProjectsSetPagination(PageNumberPagination):
+    page_size = 18
+    page_size_query_param = 'page_size'
+    max_page_size = 18
 
 
 @api_view(['GET'])
@@ -32,6 +39,10 @@ class ProjectList(generics.ListCreateAPIView):
     model = Project
     queryset = Project.objects.all().order_by('is_active', 'name')
     serializer_class = ProjectSerializer
+    pagination_class = CustomProjectsSetPagination
+
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('id_user__name',)
 
 
 @authentication_classes((SessionAuthentication, BasicAuthentication))
@@ -52,7 +63,7 @@ class StageList(generics.ListCreateAPIView):
     serializer_class = StageSerializer
 
     filter_backends = (filters.SearchFilter,)
-    search_fields = ['id_project__id']
+    search_fields = ('id_project__id', 'id_user__name')
 
 
 @authentication_classes((SessionAuthentication, BasicAuthentication))
@@ -73,7 +84,7 @@ class TaskList(generics.ListCreateAPIView):
     serializer_class = TaskSerializer
 
     filter_backends = (filters.SearchFilter,)
-    search_fields = ['id_project__id']
+    search_fields = ('id_project__id', 'id_user__name')
 
 
 @authentication_classes((SessionAuthentication, BasicAuthentication))
