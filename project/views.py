@@ -1,6 +1,8 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from project.api.serializers import ProjectSerializer, StageSerializer, TaskSerializer
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.parsers import MultiPartParser
 from rest_framework.reverse import reverse
 from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
@@ -10,8 +12,6 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from project.models import Project, Stage, Task
 
 from rest_framework import filters
-from django_filters.rest_framework import DjangoFilterBackend
-import django_filters.rest_framework
 
 
 class CustomProjectsSetPagination(PageNumberPagination):
@@ -40,9 +40,12 @@ class ProjectList(generics.ListCreateAPIView):
     queryset = Project.objects.all().order_by('is_active', 'name')
     serializer_class = ProjectSerializer
     pagination_class = CustomProjectsSetPagination
+    parser_classes = (MultiPartParser,)
 
-    filter_backends = (filters.SearchFilter,)
-    search_fields = ('id_user__name',)
+    # filter_backends = (filters.SearchFilter,)
+    # search_fields = ('id_user__name',)
+    filter_backends = (DjangoFilterBackend,)
+    filterset_fields = ('id_user__id',)
 
 
 @authentication_classes((SessionAuthentication, BasicAuthentication))
@@ -62,8 +65,10 @@ class StageList(generics.ListCreateAPIView):
     queryset = Stage.objects.all().order_by('is_active', 'name')
     serializer_class = StageSerializer
 
-    filter_backends = (filters.SearchFilter,)
-    search_fields = ('id_project__id', 'id_user__name')
+    # filter_backends = (filters.SearchFilter,)
+    # search_fields = ('id_project__id',)
+    filter_backends = (DjangoFilterBackend,)
+    filterset_fields = ('id_project__id',)
 
 
 @authentication_classes((SessionAuthentication, BasicAuthentication))
@@ -83,8 +88,8 @@ class TaskList(generics.ListCreateAPIView):
     queryset = Task.objects.all().order_by('is_active', 'name')
     serializer_class = TaskSerializer
 
-    filter_backends = (filters.SearchFilter,)
-    search_fields = ('id_project__id', 'id_user__name')
+    filter_backends = (DjangoFilterBackend,)
+    filterset_fields = ('id_project__id', 'id_user__id')
 
 
 @authentication_classes((SessionAuthentication, BasicAuthentication))

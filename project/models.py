@@ -7,7 +7,7 @@ class Project(models.Model):  # проект
 
     slug = models.SlugField(blank=True)
     users = models.ManyToManyField(User, verbose_name='участники')  # , on_delete=models.CASCADE)
-    image = models.ImageField(verbose_name='изображение', blank=True)
+    image = models.ImageField(verbose_name='изображение', upload_to='projects_images', blank=True)
     name = models.CharField(verbose_name='название проекта', max_length=128)
     description = models.TextField(verbose_name='опсиание проекта', blank=True)
     date_start = models.DateField(verbose_name='дата начала проекта', default=datetime.date.today())

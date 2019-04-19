@@ -4,6 +4,7 @@ from rest_framework import serializers
 
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
+    image = serializers.ImageField(use_url=True, allow_empty_file=True, max_length=254)
     url = serializers.HyperlinkedIdentityField(view_name='project:project-detail')
     users = serializers.HyperlinkedRelatedField(
         label='Ползователи',
@@ -25,6 +26,7 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
             description=validated_data['description'],
             date_end=validated_data['date_end'],
             is_active=validated_data['is_active'],
+            image=validated_data['image'],
         )
 
         slug_tmp_num = slug_tmp + '_'
