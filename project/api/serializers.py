@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
-    image = serializers.ImageField(use_url=True, allow_empty_file=True, max_length=254)
+    image = serializers.ImageField(use_url=True, allow_empty_file=True, max_length=None, required=False)
     url = serializers.HyperlinkedIdentityField(view_name='project:project-detail')
     users = serializers.HyperlinkedRelatedField(
         label='Ползователи',
@@ -26,11 +26,10 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
             description=validated_data['description'],
             date_end=validated_data['date_end'],
             is_active=validated_data['is_active'],
-            image=validated_data['image'],
         )
 
         slug_tmp_num = slug_tmp + '_'
-        if Project.objects.filter(slug=slug_tmp):
+        if Project.objects.filter(slug=slug_tmp) and slug_tmp != '':
 
             if Project.objects.filter(slug__iregex=slug_tmp_num + r'[0-9]'):
                 last_slug = Project.objects.filter(slug__iregex=slug_tmp_num + r'[0-9]').order_by('-id')[:1][0]
@@ -45,7 +44,13 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
         else:
             project.slug = slug_tmp
 
+        try:
+            project.image = validated_data['image']
+        except KeyError:
+            pass
+
         project.save()
+
         many_to_many = {'users': validated_data['users']}
         for field_name, value in many_to_many.items():
             field = getattr(project, field_name)

@@ -37,7 +37,7 @@ def api_root(request):
 class ProjectList(generics.ListCreateAPIView):
 
     model = Project
-    queryset = Project.objects.all().order_by('is_active', 'name')
+    queryset = Project.objects.all().order_by('is_active', '-id')
     serializer_class = ProjectSerializer
     pagination_class = CustomProjectsSetPagination
     parser_classes = (MultiPartParser,)
@@ -53,7 +53,7 @@ class ProjectList(generics.ListCreateAPIView):
 class ProjectDetail(generics.RetrieveUpdateDestroyAPIView):
 
     model = Project
-    queryset = Project.objects.all().order_by('is_active', 'name')
+    queryset = Project.objects.all().order_by('is_active', '-id')
     serializer_class = ProjectSerializer
 
 
@@ -62,7 +62,7 @@ class ProjectDetail(generics.RetrieveUpdateDestroyAPIView):
 class StageList(generics.ListCreateAPIView):
 
     model = Stage
-    queryset = Stage.objects.all().order_by('is_active', 'name')
+    queryset = Stage.objects.all().order_by('is_active', 'id')
     serializer_class = StageSerializer
 
     # filter_backends = (filters.SearchFilter,)
@@ -85,7 +85,7 @@ class StageDetail(generics.RetrieveUpdateDestroyAPIView):
 class TaskList(generics.ListCreateAPIView):
 
     model = Task
-    queryset = Task.objects.all().order_by('is_active', 'name')
+    queryset = Task.objects.all().order_by('is_active', 'id')
     serializer_class = TaskSerializer
 
     filter_backends = (DjangoFilterBackend,)
