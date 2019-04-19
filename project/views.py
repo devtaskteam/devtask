@@ -45,7 +45,7 @@ class ProjectList(generics.ListCreateAPIView):
     # filter_backends = (filters.SearchFilter,)
     # search_fields = ('id_user__name',)
     filter_backends = (DjangoFilterBackend,)
-    filterset_fields = ('id_user__id',)
+    filterset_fields = ('users__id',)
 
 
 @authentication_classes((SessionAuthentication, BasicAuthentication))
