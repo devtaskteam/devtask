@@ -1,7 +1,8 @@
 from project.models import Project, Stage, Task
 from authapp.models import User
 from rest_framework import serializers
-from django.template.defaultfilters import slugify
+# from django.template.defaultfilters import slugify
+from django.utils.text import slugify
 
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
@@ -20,7 +21,7 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
 
     def create(self, validated_data):
         validated_data.pop('slug')
-        slug_tmp = slugify(validated_data['name'])
+        slug_tmp = slugify(validated_data['name'], allow_unicode=True)
 
         project = Project(
 
