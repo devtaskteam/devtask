@@ -1,11 +1,12 @@
 from project.models import Project, Stage, Task
 from authapp.models import User
 from rest_framework import serializers
+from django.template.defaultfilters import slugify
 
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
     image = serializers.ImageField(use_url=True, allow_empty_file=True, max_length=None, required=False)
-    url = serializers.HyperlinkedIdentityField(view_name='project:project-detail')
+    url = serializers.HyperlinkedIdentityField(view_name='project:project-detail', lookup_field='slug')
     users = serializers.HyperlinkedRelatedField(
         label='Ползователи',
         queryset=User.objects.all(),
@@ -18,7 +19,8 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        slug_tmp = validated_data.pop('slug')
+        validated_data.pop('slug')
+        slug_tmp = slugify(validated_data['name'])
 
         project = Project(
 
@@ -29,7 +31,7 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
         )
 
         slug_tmp_num = slug_tmp + '_'
-        if Project.objects.filter(slug=slug_tmp) and slug_tmp != '':
+        if Project.objects.filter(slug=slug_tmp):
 
             if Project.objects.filter(slug__iregex=slug_tmp_num + r'[0-9]'):
                 last_slug = Project.objects.filter(slug__iregex=slug_tmp_num + r'[0-9]').order_by('-id')[:1][0]
