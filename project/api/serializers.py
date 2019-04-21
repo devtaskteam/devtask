@@ -1,10 +1,58 @@
 from project.models import Project, Stage, Task
 from authapp.models import User
 from rest_framework import serializers
+from django.utils.text import slugify
+
+
+def transliterate_ru_en(string):
+    ru_en_alphabet = {
+        'а': 'a',
+        'б': 'b',
+        'в': 'v',
+        'г': 'g',
+        'д': 'd',
+        'е': 'e',
+        'ё': 'yo',
+        'ж': 'zh',
+        'з': 'z',
+        'и': 'i',
+        'й': 'i',
+        'к': 'k',
+        'л': 'l',
+        'м': 'm',
+        'н': 'n',
+        'о': 'o',
+        'п': 'p',
+        'р': 'r',
+        'с': 's',
+        'т': 't',
+        'у': 'u',
+        'ф': 'f',
+        'х': 'h',
+        'ц': 'c',
+        'ч': 'ch',
+        'ш': 'sh',
+        'щ': 'sh',
+        'ы': 'y',
+        'э': 'e',
+        'ю': 'u',
+        'я': 'ya',
+        'ь': '',
+        'ъ': ''
+    }
+    symbols_ru = list(string.lower())
+    symbols_en = []
+    for symbol in symbols_ru:
+        if symbol in ru_en_alphabet:
+            symbols_en.append(ru_en_alphabet[symbol])
+        else:
+            symbols_en.append(symbol)
+    return ''.join(symbols_en)
 
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='project:project-detail')
+    image = serializers.ImageField(use_url=True, allow_empty_file=True, max_length=None, required=False)
+    url = serializers.HyperlinkedIdentityField(view_name='project:project-detail', lookup_field='slug')
     users = serializers.HyperlinkedRelatedField(
         label='Ползователи',
         queryset=User.objects.all(),
@@ -17,7 +65,8 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        slug_tmp = validated_data.pop('slug')
+        validated_data.pop('slug')
+        slug_tmp = slugify(transliterate_ru_en(validated_data['name']), allow_unicode=True)
 
         project = Project(
 
@@ -43,7 +92,13 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
         else:
             project.slug = slug_tmp
 
+        try:
+            project.image = validated_data['image']
+        except KeyError:
+            pass
+
         project.save()
+
         many_to_many = {'users': validated_data['users']}
         for field_name, value in many_to_many.items():
             field = getattr(project, field_name)
@@ -56,7 +111,8 @@ class StageSerializer(serializers.HyperlinkedModelSerializer):
     id_project = serializers.HyperlinkedRelatedField(
         label='Название проекта',
         queryset=Project.objects.all(),
-        view_name='project:project-detail'
+        view_name='project:project-detail',
+        lookup_field='slug'
     )
 
     class Meta:
@@ -69,7 +125,8 @@ class TaskSerializer(serializers.HyperlinkedModelSerializer):
     id_project = serializers.HyperlinkedRelatedField(
         label='Название проекта',
         queryset=Project.objects.all(),
-        view_name='project:project-detail'
+        view_name='project:project-detail',
+        lookup_field='slug'
     )
 
     id_stage = serializers.HyperlinkedRelatedField(

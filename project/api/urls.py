@@ -25,7 +25,7 @@ app_name = 'project'
 urlpatterns = [
     url(r'^$', views.api_root),
     url(r'^projects/$', ProjectList.as_view(), name='project-list'),
-    url(r'^projects/(?P<pk>\d+)/$', ProjectDetail.as_view(), name='project-detail'),
+    url(r'^projects/(?P<slug>.*)/$', ProjectDetail.as_view(), name='project-detail'),
     url(r'^stages/$', StageList.as_view(), name='stage-list'),
     url(r'^stages/(?P<pk>\d+)/$', StageDetail.as_view(), name='stage-detail'),
     url(r'^tasks/$', TaskList.as_view(), name='task-list'),

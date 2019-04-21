@@ -8,6 +8,6 @@ class User(AbstractUser):  # пользователь
     position = models.CharField(verbose_name='должность', max_length=128, blank=True)
     email = models.EmailField(verbose_name='Электронная почта пользователя', blank=True, unique=True)
     role = models.CharField(verbose_name='Роль пользователя', max_length=128, blank=True)
-    avatar = models.ImageField(verbose_name='Аватар пользователя', blank=True)
+    avatar = models.ImageField(verbose_name='Аватар пользователя', upload_to='users_avatars', blank=True, null=True, default='/users_avatars/default.jpg')
     is_active = models.BooleanField(verbose_name='активен', default=True)
 
