@@ -41,7 +41,6 @@ class ProjectList(generics.ListCreateAPIView):
     serializer_class = ProjectSerializer
     pagination_class = CustomProjectsSetPagination
     parser_classes = (MultiPartParser,)
-    lookup_field = 'slug'
 
     # filter_backends = (filters.SearchFilter,)
     # search_fields = ('id_user__name',)
